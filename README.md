@@ -126,6 +126,7 @@ question: str
 generation: str
 web_search: bool
 documents: list
+```
 
 # Features
 
@@ -147,10 +148,10 @@ Pydantic
 dotenv
 
 # Setup Instructions
-1. Clone repository
+## 1. Clone repository
 git clone <repo-url>
 cd corrective-rag
-2. Create virtual environment
+## 2. Create virtual environment
 python -m venv .venv
 
 Activate:
@@ -159,17 +160,17 @@ Windows:
 .venv\Scripts\activate
 Mac/Linux:
 source .venv/bin/activate
-3. Install dependencies
+## 3. Install dependencies
 pip install -r requirements.txt
-4. Environment variables
+## 4. Environment variables
 
 Create a .env file:
 
 OPENAI_API_KEY=your_key
 TAVILY_API_KEY=your_key
-5. Run project
+## 5. Run project
 python main.py
-Example Execution
+# Example Execution
 Hello from corrective-rag!
 
 ---RETRIEVE---
