@@ -23,7 +23,7 @@ def web_search(state: GraphState) -> Dict[str, Any]:
     # We combine the 3 results into one langchain document 
     # 1. Join the content into one big string
     joined_tavily_result = "\n".join(      
-        [tavily_result["content"] for tavily_result in tavily_results]
+        [tavily_result["content"] for tavily_result in tavily_results["results"]]
     )
 
     # 2. Create a document with the big string as page_content

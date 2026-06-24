@@ -13,7 +13,5 @@ class GraphState(TypedDict):
     question: str
     generation: str
     web_search: bool
-    documents: List[str] #list of the content of the documents
-
-
+    documents: List[str] #list of the content of the documentss
 
