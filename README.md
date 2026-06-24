@@ -17,6 +17,7 @@ This project improves reliability by introducing a corrective feedback loop:
 
 ---
 
+
 # Architecture
 
 ## Workflow Diagram
@@ -194,3 +195,14 @@ Improve retrieval ranking with rerankers
 Add streaming responses
 Build FastAPI or Streamlit UI
 Add evaluation metrics (faithfulness, relevance scoring)
+
+# 🔄 v1.0.0 → v1.1.0 Improvements
+
+- Added hallucination detection layer
+- Added answer relevance grading
+- Introduced multi-stage self-evaluation loop
+- Upgraded linear RAG pipeline into LangGraph decision system
+- Added conditional routing for regeneration and fallback web search
+- Improved factual accuracy + response usefulness
+
+
