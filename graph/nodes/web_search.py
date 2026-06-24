@@ -14,7 +14,7 @@ web_search_tool = TavilySearch(max_results=3)
 def web_search(state: GraphState) -> Dict[str, Any]:
     print("---WEB SEARCH---")
     question = state["question"]
-    documents = state["documents"]
+    documents = state["documents"] if "documents" in state else []
 
     #This has a key 'results' that holds a list of dictionaries each dictionary has a key content and url the answer is in content
 

@@ -7,5 +7,5 @@ load_dotenv()
 
 if __name__ == "__main__":
     print("Hello from corrective-rag!")
-    result = app.invoke(input={"question": "what is agent memory?"})
+    result = app.invoke(input={"question": "how to make pizza?"})
     print(result['generation'])
