@@ -1,208 +1,153 @@
-# Corrective RAG (CRAG) with LangGraph, ChromaDB & Tavily
+# 🧠 Adaptive RAG System (Corrective → Self → Adaptive Evolution)
 
-A Corrective Retrieval-Augmented Generation (CRAG) system built with LangGraph, Chroma vector database, OpenAI GPT-4.1-mini, and Tavily web search.
+An advanced Retrieval-Augmented Generation (RAG) system that evolves through three architectural stages:
 
-This project implements a RAG pipeline that evaluates retrieval quality and dynamically triggers web search when necessary.
+- Corrective RAG (v1.0.0)
+- Self-RAG (v1.1.0)
+- Adaptive RAG (v1.2.0)
 
----
-
-# Overview
-
-Traditional RAG systems directly use retrieved documents without validation.  
-This project improves reliability by introducing a corrective feedback loop:
-
-- Retrieved documents are graded for relevance using an LLM
-- Irrelevant or insufficient context triggers web search fallback
-- Final responses are generated using filtered and augmented context
+This project demonstrates the progression from a basic RAG pipeline to a fully **dynamic, self-correcting, and routing-aware AI system**.
 
 ---
 
+# 🚀 Project Overview
 
-# Architecture
+This system is designed to explore modern RAG architectures by implementing:
 
-## Workflow Diagram
+- Retrieval augmentation
+- Self-evaluation loops
+- Hallucination detection
+- Answer quality grading
+- Dynamic query routing
 
-![Graph Architecture](graph.png)
-
----
-
-## Execution Flow
-
-User Question  
-→ Retrieve (Chroma Vector DB)  
-→ Grade Documents (LLM-based relevance check)  
-→ If relevant → Generate  
-→ If irrelevant → Web Search → Generate  
-→ Final Answer  
+The final system behaves as an **adaptive reasoning pipeline** capable of selecting information sources, validating outputs, and correcting itself during inference.
 
 ---
 
-# Project Structure
-corrective-rag/
-│
-├── main.py
-├── ingestion.py
-│
-├── graph/
-│ ├── graph.py
-│ ├── state.py
-│ ├── consts.py
-│ │
-│ ├── nodes/
-│ │ ├── retrieve.py
-│ │ ├── grade_documents.py
-│ │ ├── web_search.py
-│ │ └── generate.py
-│ │
-│ └── chains/
-│ ├── generation.py
-│ └── retrieval_grader.py
-│
-└── .chroma/
+# 🧬 System Evolution
 
+## 🟢 v1.0.0 — Corrective RAG
+- Basic retrieval-augmented generation
+- Document grading before generation
+- Simple corrective logic using web fallback
 
 ---
 
-# Core Components
+## 🟡 v1.1.0 — Self-RAG
+Introduced self-evaluation mechanisms:
 
-## Ingestion Pipeline (ingestion.py)
-
-- Loads and processes documents
-- Splits text into chunks
-- Generates embeddings using OpenAI
-- Stores vectors in ChromaDB
-- Exposes retriever for semantic search
+- Hallucination detection (fact grounding check)
+- Answer relevance grading
+- Iterative correction loops
+- Web search fallback for low-quality responses
 
 ---
 
-## Retrieval Node (retrieve.py)
+## 🔵 v1.2.0 — Adaptive RAG (Current)
+Major architectural upgrade introducing:
 
-- Accepts user question
-- Queries vector database
-- Returns top relevant documents
-
----
-
-## Document Grading (retrieval_grader.py)
-
-- Uses LLM to classify document relevance
-- Output is binary:
-  - yes → relevant
-  - no → irrelevant
+### ✨ Key Features
+- Intelligent query routing (vectorstore vs web search)
+- Pre-retrieval decision making
+- Structured LLM router using Pydantic
+- Dynamic multi-source retrieval system
+- Self-correcting generation loop (from v1.1.0)
 
 ---
 
-## Document Filtering (grade_documents.py)
+# 🏗️ Architecture
 
-- Iterates over retrieved documents
-- Filters irrelevant content
-- Sets flag for web search if needed
+The system operates as a multi-stage decision graph:
+
+### 1. Query Routing
+Routes user input to:
+- Internal vector database
+- External web search
+
+### 2. Retrieval
+Fetches relevant documents based on routing decision
+
+### 3. Document Grading
+Filters irrelevant context
+
+### 4. Generation
+Produces initial response using LLM
+
+### 5. Self-Evaluation (v1.1.0 feature)
+- Hallucination detection
+- Answer relevance grading
+
+### 6. Conditional Correction
+- Regenerate if hallucinated
+- Web search fallback if irrelevant
+- Return final answer if valid
 
 ---
 
-## Web Search Node (web_search.py)
+# ⚙️ Tech Stack
 
-- Uses Tavily API for live search
-- Extracts top results
-- Merges results into a single context document
-- Appends to existing document set
-
----
-
-## Generation Chain (generation.py)
-
-- Uses GPT-4.1-mini
-- Generates final answer
-- Uses retrieved + web-augmented context
-- Limited to 3 sentences
+- Python
+- LangChain
+- LangGraph
+- OpenAI GPT-4.1-mini
+- Pydantic (structured outputs)
+- ChromaDB / Vector Store
+- Prompt Engineering
 
 ---
 
-## State Definition (state.py)
+# 🔄 Key Capabilities
 
-Shared graph state:
+- Retrieval-Augmented Generation (RAG)
+- Self-correcting reasoning loops
+- Multi-source adaptive retrieval
+- Hallucination detection
+- Answer quality validation
+- Dynamic routing between knowledge sources
 
-```python
-question: str
-generation: str
-web_search: bool
-documents: list
-```
+---
 
-# Features
+# 📊 Why This Project Matters
 
-Corrective RAG pipeline
-LLM-based document relevance grading
-Web search fallback mechanism
-Vector database retrieval with ChromaDB
-LangGraph state machine orchestration
-Structured LLM outputs using Pydantic
-Modular node-based architecture
-# Tech Stack
-LangChain
-LangGraph
-OpenAI GPT-4.1-mini
-ChromaDB
-Tavily API
-Python
-Pydantic
-dotenv
+This project demonstrates:
 
-# Setup Instructions
-## 1. Clone repository
-git clone <repo-url>
-cd corrective-rag
-## 2. Create virtual environment
-python -m venv .venv
+- Advanced RAG system design
+- Agentic AI architecture thinking
+- Multi-step reasoning pipelines
+- LLM-based decision systems
+- Production-style LangGraph workflows
 
-Activate:
+---
 
-Windows:
-.venv\Scripts\activate
-Mac/Linux:
-source .venv/bin/activate
-## 3. Install dependencies
-pip install -r requirements.txt
-## 4. Environment variables
+# 🧪 How It Works (Simplified Flow)
 
-Create a .env file:
+User Query  
+→ Routing (Vectorstore / Web)  
+→ Retrieval  
+→ Document Grading  
+→ Generation  
+→ Hallucination Check  
+→ Answer Evaluation  
+→ Final Response / Retry Loop  
 
-OPENAI_API_KEY=your_key
-TAVILY_API_KEY=your_key
-## 5. Run project
-python main.py
-# Example Execution
-Hello from corrective-rag!
+---
 
----RETRIEVE---
----CHECKING DOCUMENT RELEVANCE---
----GENERATE---
+# 📌 Future Improvements
 
-Final answer returned from LLM
+- Memory-based conversational RAG
+- Multi-agent collaboration system
+- Evaluation dashboard (accuracy metrics)
+- API + frontend deployment
+- Streaming responses UI
 
+---
 
-# This project demonstrates:
+# 🏁 Summary
 
-Self-correcting RAG systems
-LLM-as-a-judge pattern for retrieval validation
-Hybrid knowledge retrieval (vector DB + web search)
-Graph-based AI workflow orchestration
-Production-style modular AI system design
+This project demonstrates the evolution of RAG systems:
 
-# Future Improvements
-Add conversational memory
-Improve retrieval ranking with rerankers
-Add streaming responses
-Build FastAPI or Streamlit UI
-Add evaluation metrics (faithfulness, relevance scoring)
+- From static retrieval (Corrective RAG)
+- To self-evaluating pipelines (Self-RAG)
+- To intelligent routing systems (Adaptive RAG)
 
-# 🔄 v1.0.0 → v1.1.0 Improvements
-
-- Added hallucination detection layer
-- Added answer relevance grading
-- Introduced multi-stage self-evaluation loop
-- Upgraded linear RAG pipeline into LangGraph decision system
-- Added conditional routing for regeneration and fallback web search
-- Improved factual accuracy + response usefulness
-
-
+It showcases a full progression toward **agentic, adaptive AI architectures**.
